@@ -1,6 +1,6 @@
 {
   "name": "@adamancyzhang/agent-reacttools",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Inspect React component tree, props and hook state in a live browser over CDP — no react-devtools extension needed.",
   "type": "module",
   "bin": {
