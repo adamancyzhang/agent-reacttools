@@ -1,0 +1,6 @@
+node_modules/
+dist/
+test/fixtures/react-app/dist/
+*.log
+.DS_Store
+.reference-vuetools/
