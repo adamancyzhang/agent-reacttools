@@ -1,5 +1,5 @@
 /**
- * agent-reactools page probe (React 16/17/18/19).
+ * agent-reacttools page probe (React 16/17/18/19).
  *
  * Injected into the inspected page via Runtime.evaluate. Self-contained IIFE
  * that evaluates to a function: probe(task) -> JSON string.

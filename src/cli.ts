@@ -13,10 +13,10 @@ import { FIELDS, parseFields } from './fields.js';
 import { renderFindText, renderInspectText, renderQueryText, renderStyleText, renderTreeText } from './output/text.js';
 import { VERSION } from './version.js';
 
-export const USAGE = `agent-reactools — inspect React components in a live browser over CDP
+export const USAGE = `agent-reacttools — inspect React components in a live browser over CDP
 
 Usage:
-  agent-reactools <command> [args] [flags]
+  agent-reacttools <command> [args] [flags]
 
 Commands:
   tree                 Print the React component tree of the page

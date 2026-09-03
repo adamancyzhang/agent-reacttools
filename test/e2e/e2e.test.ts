@@ -108,7 +108,7 @@ describe('tree', () => {
     // _debugSource records the JSX site that renders the component — the
     // React analog of Vue's __file points at usage, not definition.
     expect(app.file).toContain('main.tsx');
-    expect(app.hooks.useState).toBe('agent-reactools fixture');
+    expect(app.hooks.useState).toBe('agent-reacttools fixture');
     expect(app.hooks['useState (1)']).toBe(3);
     expect(app.memo).toEqual({ useMemo: 6 });
 
@@ -137,7 +137,7 @@ describe('tree', () => {
   it('supports browser-level ws URLs with --tab selection', async () => {
     const { parsed, raw } = await cliJson(['tree', '--cdp', chrome!.browserWs, '--tab', 't1', '--depth', '3']);
     expect(raw.code).toBe(0);
-    expect(parsed.page.title).toBe('agent-reactools fixture');
+    expect(parsed.page.title).toBe('agent-reacttools fixture');
   });
 
   it('renders a human-readable text tree', async () => {

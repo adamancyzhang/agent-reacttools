@@ -1,10 +1,10 @@
 ---
-name: agent-reactools
+name: agent-reacttools
 description: React component introspection CLI for AI agents. Use when the user needs to inspect or debug React components in a running browser — viewing the component tree, checking props, hook state (useState/useMemo/context), locating components by name/_debugSource path/CSS selector/XPath/visible text, or debugging element styles. Triggers include requests to "show the component tree", "what props does this component receive", "find the button that says ...", "inspect this React component", "where is this component rendered", or "debug this element's styles". Works over CDP against any Chrome/Edge with a remote-debugging port; no react-devtools extension required. Pair with the agent-browser skill for browser operations (opening URLs, clicking, filling) during React debugging.
-allowed-tools: Bash(agent-reactools:*)
+allowed-tools: Bash(agent-reacttools:*)
 ---
 
-# agent-reactools
+# agent-reacttools
 
 Inspect React components (fiber tree, props, hook state, useMemo values, context) in a live browser over CDP — **no react-devtools extension needed**.
 
@@ -14,16 +14,16 @@ Requires Chrome/Edge running with a debugging port (default: `127.0.0.1:9222`):
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --remote-debugging-port=9222
 ```
 
-agent-reactools only **inspects** — it never opens URLs or manipulates pages. For browser control, pair it with the `agent-browser` skill (see [Browser operations](#browser-operations-agent-browser)).
+agent-reacttools only **inspects** — it never opens URLs or manipulates pages. For browser control, pair it with the `agent-browser` skill (see [Browser operations](#browser-operations-agent-browser)).
 
 ## Core workflows
 
 ### 1. See the component tree
 
 ```bash
-agent-reactools tree                     # full tree: components + elements
-agent-reactools tree --depth 3 --compact # names + DOM only
-agent-reactools tree --json              # machine-readable
+agent-reacttools tree                     # full tree: components + elements
+agent-reacttools tree --depth 3 --compact # names + DOM only
+agent-reacttools tree --json              # machine-readable
 ```
 
 Component nodes carry `[DOM]` brackets, prop values, a hooks summary, and the source path (dev builds). A component's own root element line is elided (its DOM is already in the bracket); unkeyed React fragments are transparent.
@@ -31,11 +31,11 @@ Component nodes carry `[DOM]` brackets, prop values, a hooks summary, and the so
 ### 2. Inspect a component
 
 ```bash
-agent-reactools inspect Counter          # by component name
-agent-reactools inspect src/components/  # by source path substring
-agent-reactools inspect "#submit-btn"    # by CSS selector
-agent-reactools inspect '//*[text()[contains(., "Submit")]]'  # by XPath
-agent-reactools inspect "Back to list"   # by visible text
+agent-reacttools inspect Counter          # by component name
+agent-reacttools inspect src/components/  # by source path substring
+agent-reacttools inspect "#submit-btn"    # by CSS selector
+agent-reacttools inspect '//*[text()[contains(., "Submit")]]'  # by XPath
+agent-reacttools inspect "Back to list"   # by visible text
 ```
 
 Output: resolved props (+ defaultProps defaults), hook state (useState/useReducer/useRef/useContext values, useMemo/useCallback results), memo group, class component state, context provider values, and the parent chain. Resolution order: component name → source path substring → CSS selector → XPath → visible text.
@@ -43,7 +43,7 @@ Output: resolved props (+ defaultProps defaults), hook state (useState/useReduce
 ### 3. Locate components in the tree
 
 ```bash
-agent-reactools find <name|path-substring>
+agent-reacttools find <name|path-substring>
 ```
 
 Prints each match with its parent chain (`App → Header → NavLink`).
@@ -51,8 +51,8 @@ Prints each match with its parent chain (`App → Header → NavLink`).
 ### 4. Collect DOM matches
 
 ```bash
-agent-reactools query '//button[contains(@class, "ant-btn")]'   # XPath
-agent-reactools query '.nav a' --limit 20                        # CSS, 50 by default
+agent-reacttools query '//button[contains(@class, "ant-btn")]'   # XPath
+agent-reacttools query '.nav a' --limit 20                        # CSS, 50 by default
 ```
 
 Each match reports the element descriptor plus its owning component (name/source, or null for plain DOM). Works on non-React pages too.
@@ -60,38 +60,38 @@ Each match reports the element descriptor plus its owning component (name/source
 ### 5. Debug element styles
 
 ```bash
-agent-reactools style '.ant-btn-primary'   # computed style, curated ~40 keys
-agent-reactools style '//button[@id="save"]' --all   # every property
+agent-reacttools style '.ant-btn-primary'   # computed style, curated ~40 keys
+agent-reacttools style '//button[@id="save"]' --all   # every property
 ```
 
 Output includes explicit `tag` / `id` / **full untruncated `class`** / `text` fields plus inline style — the class attribute is the primary hook for style debugging. Works on non-React pages too.
 
 ## Browser operations (agent-browser)
 
-For opening URLs, clicking, filling forms, or taking screenshots, use the [agent-browser](https://github.com/vercel-labs/agent-browser) CLI — it manages a Chrome instance over the same CDP protocol that agent-reactools connects to.
+For opening URLs, clicking, filling forms, or taking screenshots, use the [agent-browser](https://github.com/vercel-labs/agent-browser) CLI — it manages a Chrome instance over the same CDP protocol that agent-reacttools connects to.
 
 ```bash
 npm i -g agent-browser
 agent-browser install      # first time only: download Chrome for Testing
 ```
 
-### Point agent-reactools at agent-browser's browser
+### Point agent-reacttools at agent-browser's browser
 
 ```bash
 agent-browser open http://localhost:5173     # launch browser + navigate
-agent-reactools tree --cdp "$(agent-browser get cdp-url)"
+agent-reacttools tree --cdp "$(agent-browser get cdp-url)"
 ```
 
-`agent-browser get cdp-url` prints the browser-level ws URL; pass it to `--cdp` on every agent-reactools command. If agent-browser's Chrome runs on a known debugging port, use `--cdp <port>` instead.
+`agent-browser get cdp-url` prints the browser-level ws URL; pass it to `--cdp` on every agent-reacttools command. If agent-browser's Chrome runs on a known debugging port, use `--cdp <port>` instead.
 
 ### Debug loop: drive the UI, then inspect the result
 
 ```bash
 agent-browser open http://localhost:5173
-agent-reactools tree --cdp "$(agent-browser get cdp-url)"
+agent-reacttools tree --cdp "$(agent-browser get cdp-url)"
 
 agent-browser click "#count-btn"     # drive the UI
-agent-reactools inspect Counter --cdp "$(agent-browser get cdp-url)" --fields props,hooks,memo
+agent-reacttools inspect Counter --cdp "$(agent-browser get cdp-url)" --fields props,hooks,memo
 # → count changed 3 → 4, memo doubled now 8: state change verified
 
 agent-browser screenshot bug.png     # capture for the record
@@ -106,7 +106,7 @@ agent-browser screenshot bug.png     # capture for the record
 | `click <sel>` / `fill <sel> <text>` | Interact via CSS selectors or refs |
 | `screenshot [path]` | Capture the page |
 | `eval <js>` | Run JS in the page |
-| `get cdp-url` | CDP ws URL of its browser (bridge to agent-reactools) |
+| `get cdp-url` | CDP ws URL of its browser (bridge to agent-reacttools) |
 | `close --all` | Shut the browser down |
 
 Every agent-browser command accepts `--json`. For the full reference, load the agent-browser skill (`agent-browser skills get core`).

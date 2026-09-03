@@ -44,20 +44,20 @@ XPath expressions in `inspect` / `query` / `style` are evaluated with the browse
 | `//div/ancestor::section` | Ancestor section elements |
 | `//p/parent::div` | Parent element of a `<p>` |
 
-## Common recipes with agent-reactools
+## Common recipes with agent-reacttools
 
 ```bash
 # All primary buttons
-agent-reactools query '//button[contains(@class, "ant-btn-primary")]'
+agent-reacttools query '//button[contains(@class, "ant-btn-primary")]'
 
 # Every element whose direct text mentions "member"
-agent-reactools query '//*[text()[contains(., "member")]]'
+agent-reacttools query '//*[text()[contains(., "member")]]'
 
 # The input next to a specific label
-agent-reactools inspect '//label[contains(text(), "Email")]/following-sibling::input'
+agent-reacttools inspect '//label[contains(text(), "Email")]/following-sibling::input'
 
 # Style of the submit button inside a form
-agent-reactools style '//form[@id="login"]//button[@type="submit"]'
+agent-reacttools style '//form[@id="login"]//button[@type="submit"]'
 ```
 
 ## Limits (XPath 1.0)

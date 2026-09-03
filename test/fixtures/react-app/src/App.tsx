@@ -7,7 +7,7 @@ import MultiRoot from './components/MultiRoot';
 import ThemeBox from './components/ThemeBox';
 
 export default function App() {
-  const [title] = useState('agent-reactools fixture');
+  const [title] = useState('agent-reacttools fixture');
   const [count, setCount] = useState(3);
   const doubled = useMemo(() => count * 2, [count]);
   return (
