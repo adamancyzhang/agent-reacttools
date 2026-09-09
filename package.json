@@ -37,6 +37,7 @@
     "build": "npm run typecheck && node scripts/build.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run test/unit",
+    "check-skill": "bash scripts/check-skill.sh",
     "test:e2e": "npm run build && vitest run test/e2e",
     "fixture:serve": "vite dev test/fixtures/react-app --port 4173 --strictPort"
   },
