@@ -1,6 +1,6 @@
 # agent-reacttools
 
-Inspect React components in a live browser over CDP — no react-devtools extension needed. Built for AI agents: stable machine-readable output, plus a human-readable text format.
+Inspect React components in a live browser over CDP. Built for AI agents: stable machine-readable output, plus a human-readable text format.
 
 [![npm version](https://img.shields.io/npm/v/%40adamancyzhang%2Fagent-reacttools)](https://www.npmjs.com/package/@adamancyzhang/agent-reacttools)
 [![license](https://img.shields.io/npm/l/%40adamancyzhang%2Fagent-reacttools)](LICENSE)
@@ -221,8 +221,8 @@ agent-reacttools inspect SubmitButton --cdp "$(agent-browser get cdp-url)" --fie
 ## Limits & Caveats
 
 - **React 16/17/18/19** (the probe reads the fiber tree through the DOM markers each major ships).
-- **Production builds** lose `_debugSource` paths, hook names (keys degrade to `h0..hN`), and often component names (minified to `Anonymous`) — the same limits react-devtools has. Dev builds give the richest output.
-- `_debugSource` records the **JSX site that renders** a component (the react-devtools source-panel location), not its definition file — this differs from Vue's `__file`, which points at the definition.
+- **Production builds** lose `_debugSource` paths, hook names (keys degrade to `h0..hN`), and often component names (minified to `Anonymous`). Dev builds give the richest output.
+- `_debugSource` records the **JSX site that renders** a component, not its definition file — this differs from Vue's `__file`, which points at the definition.
 - **Version reporting**: the runtime exposes no version field; the probe reports `window.React.version` for UMD builds and otherwise the major inferred from DOM markers (`18+` / `17` / `16`).
 - **iframes**: main frame only. **Suspense** shows the committed branch; **unkeyed fragments** are transparent (React flattens them in the fiber tree), keyed fragments appear as nodes.
 - **Huge pages**: tree caps at 5000 nodes (`truncated: true`). For deep content, use `inspect`/`query` with XPath or text targeting instead of the tree.

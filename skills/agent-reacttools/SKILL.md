@@ -1,12 +1,12 @@
 ---
 name: agent-reacttools
-description: React component introspection CLI for AI agents. Use when the user needs to inspect or debug React components in a running browser — viewing the component tree, checking props, hook state (useState/useMemo/context), locating components by name/_debugSource path/CSS selector/XPath/visible text, or debugging element styles. Triggers include requests to "show the component tree", "what props does this component receive", "find the button that says ...", "inspect this React component", "where is this component rendered", or "debug this element's styles". Works over CDP against any Chrome/Edge with a remote-debugging port; no react-devtools extension required. Pair with the agent-browser skill for browser operations (opening URLs, clicking, filling) during React debugging.
+description: React component introspection CLI for AI agents. Use when the user needs to inspect or debug React components in a running browser — viewing the component tree, checking props, hook state (useState/useMemo/context), locating components by name/_debugSource path/CSS selector/XPath/visible text, or debugging element styles. Also use while debugging e2e or component tests of React apps (Playwright/Cypress/vitest): when a test fails because React rendered the wrong tree, props, or state, inspect what components actually received and what hooks/memo currently hold, and compare against the test's expectations. Triggers include "show the component tree", "what props does this component receive", "find the button that says ...", "why did this React test fail", "the test expected count=4 but the page shows 3", "verify the counter state after clicking". Pair with the agent-browser skill for browser operations during React debugging.
 allowed-tools: Bash(agent-reacttools:*)
 ---
 
 # agent-reacttools
 
-Inspect React components (fiber tree, props, hook state, useMemo values, context) in a live browser over CDP — **no react-devtools extension needed**.
+Inspect React components (fiber tree, props, hook state, useMemo values, context) in a live browser over CDP.
 
 Requires Chrome/Edge running with a debugging port (default: `127.0.0.1:9222`):
 
@@ -142,8 +142,8 @@ Errors: `{"ok":false,"error":{"code":"no-react|not-found|bad-query|no-browser|am
 
 ## Limits
 
-- **React 16/17/18/19**. Dev builds give the richest output: `_debugSource` file paths and hook names from `_debugHookTypes`. In production builds these degrade (`file: null`, hook keys `h0..hN`, minified component names) — the same limits react-devtools has.
-- `_debugSource` records the **JSX site that renders** the component (like react-devtools' source panel), not its definition file.
+- **React 16/17/18/19**. Dev builds give the richest output: `_debugSource` file paths and hook names from `_debugHookTypes`. In production builds these degrade (`file: null`, hook keys `h0..hN`, minified component names).
+- `_debugSource` records the **JSX site that renders** the component, not its definition file.
 - The runtime does not expose the React version — the probe reports the UMD `React.version` when present, else the major inferred from DOM markers (`18+`/`17`/`16`).
 - **iframes**: main frame only. Unkeyed fragments are transparent (React flattens them); keyed fragments appear as nodes. Suspense shows the committed branch.
 - Huge pages: tree caps at 5000 nodes (`truncated: true`); prefer `inspect`/`query` XPath or text targeting for deep content.

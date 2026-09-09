@@ -19,8 +19,7 @@
  * `__reactFiber$<suffix>` (React 17/18/19, the fiber of that DOM node),
  * `__reactInternalInstance$<suffix>` (React 16), and legacy React 16/17
  * containers carry `_reactRootContainer._internalRoot`. The probe walks the
- * fiber tree through `child`/`sibling` pointers — no react-devtools extension
- * is required.
+ * fiber tree through `child`/`sibling` pointers.
  */
 (function () {
   'use strict';
@@ -533,7 +532,7 @@
    * `dependencies` list instead. Dev builds list it in `_debugHookTypes`, so
    * its value is spliced in at the right position from that list. Production
    * builds lose useContext entirely (the dependencies list has no stable
-   * order relative to the hook list) — same limit as react-devtools.
+   * order relative to the hook list).
    */
   function hooksInfo(fiber, state) {
     var hook = fiber.memoizedState;
@@ -630,7 +629,7 @@
   /**
    * The DOM node a component renders into: the first host fiber in its
    * rendered subtree (depth-first), descending through fragments and wrapper
-   * fibers — the same element React DevTools highlights. Survives empty
+   * fibers. Survives empty
    * render branches (a `child` chain that ends in null) by visiting
    * siblings. Text-only components get a text-node bracket; components
    * rendering nothing at all get null.
