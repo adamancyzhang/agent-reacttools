@@ -1,6 +1,6 @@
 {
   "name": "@adamancyzhang/agent-reacttools",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Inspect React component tree, props and hook state in a live browser over CDP.",
   "type": "module",
   "bin": {
@@ -37,7 +37,7 @@
     "build": "npm run typecheck && node scripts/build.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run test/unit",
-    "check-skill": "bash scripts/check-skill.sh",
+    "check-skill": "node scripts/check-skill.mjs",
     "test:e2e": "npm run build && vitest run test/e2e",
     "fixture:serve": "vite dev test/fixtures/react-app --port 4173 --strictPort"
   },
